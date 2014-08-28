@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+  
+<!DOCTYPE mapper PUBLIC   "-//mybatis.org//DTD Mapper 3.0//EN"   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+  
+<mapper namespace="org.chevic.core.entity.User" >  
+	<resultMap type="org.chevic.core.entity.User" id="user">
+           <id  column="USER_ID" property="userid"  javaType="Integer"/>
+           <result column="USER_NAME" property="userName"  javaType="String"/>
+           <result column="USER_PASW" property="passWord"  javaType="String"/>
+           <result column="USER_REGDATE" property="regDate"  javaType="String"/>
+           <result column="USER_STATUS" property="status"  javaType="String"/>
+    </resultMap>
+    
+    <insert id="insertUser" parameterType="org.chevic.core.entity.User" >  
+	   <selectKey resultType="java.lang.Integer" order="BEFORE" keyProperty="userid">  
+	      SELECT SEQ_T_USER.Nextval as USER_ID from DUAL  
+	  </selectKey> 
+       insert into t_user (USER_ID,USER_NAME,USER_PASW,USER_REGDATE,USER_STATUS)
+       values(
+       	#{userid},#{userName},#{passWord},to_char(sysdate,'YYYY/MM/DD'),'01'
+       )
+    </insert>  
+    
+    <update id="updateUser" parameterType="org.chevic.core.entity.User">
+			UPDATE T_User SET USER_ID = USER_ID
+			<if test="passWord != null">
+         	,USER_PASW = #{passWord}
+	         </if>
+	         <if test="userName != null">
+	         , USER_NAME = #{userName}
+	         </if>
+	         <if test="status != null">
+	         	, USER_STATUS = #{status}
+	         </if>
+	         where USER_ID = #{userid}
+	</update>
+    
+    <select id="selectUser" parameterType="org.chevic.core.entity.User" resultMap="user">
+         select * from T_User where 1=1
+         <if test="userid != null">
+         	and USER_ID = #{userid}
+         </if>
+         <if test="userName != null">
+         	and USER_NAME = #{userName}
+         </if>
+         <if test="regDate != null">
+         	and USER_REGDATE = #{regDate}
+         </if>
+         <if test="status != null">
+         	and USER_STATUS = #{status}
+         </if>
+    </select>
+    
+    <delete id="deleteUser" parameterType="org.chevic.core.entity.User">
+    	delete from T_USER where USER_ID = #{userid}
+    </delete>
+</mapper>  
