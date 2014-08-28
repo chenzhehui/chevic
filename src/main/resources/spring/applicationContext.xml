@@ -24,10 +24,6 @@
 			</list>
 		</property>
 	</bean>
-
-	<bean id="decrypter" class="org.chevic.base.common.utils.Decrypter">
-		<property name="key" value="${c3p0.key}"/>
-	</bean>
     
 	<!-- C3P0连接池 -->
 	<bean id="myDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"	destroy-method="close">
@@ -77,7 +73,7 @@
           <constructor-arg index="0" ref="sqlSessionFactory" />  
       </bean> 
 
-	   <bean id="baseDao"     class="common.core.dao.MyBatisDaoImp">
+	   <bean id="baseDao"     class=" org.chevic.core.dao.MyBatisDaoImp">
              <property name="sqlSession" ref="sqlSession"></property>
        </bean>
 

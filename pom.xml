@@ -30,13 +30,6 @@
 		</dependency>
 		<!-- log4j 日志结束-->
 		
-		<!-- 加密 解密 开始-->
-		<dependency>
-			<groupId>org.jasypt</groupId>
-			<artifactId>jasypt</artifactId>
-			<version>1.9.0</version>
-		</dependency>
-		<!-- 加密 解密 结束-->
 		
 		<!-- 单元测试 开始-->
 		<dependency>
